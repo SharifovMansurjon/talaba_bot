@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import { Telegraf, Markup } from 'telegraf'
+import express from "express";
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
@@ -108,7 +109,14 @@ ID: ${ctx.from.id}`
     menu()
   )
 })
+const app = express();
 
+app.get("/", (req, res) => {
+  res.send("Bot ishlayapti ✅");
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log("Web server port:", PORT));
 bot.launch()
 bot.on('document', async (ctx) => {
 
